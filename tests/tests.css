@@ -1,0 +1,33 @@
+body {
+  font-family: sans-serif;
+  width: 400px;
+  padding: 20px;
+}
+
+.container {
+  width: 400px;
+  height: 200px;
+  background: #333;
+  margin-bottom: 20px;
+}
+
+.box {
+  background: #0AE;
+}
+
+/* align to right side */
+#qunit {
+  position: absolute;
+  left: 0;
+  top: 20px;
+  margin-left: 440px;
+  margin-right: 10px;
+}
+
+
+/* Boxes
+------------------------- */
+
+#ex2 .box {
+  height: 100%;
+}
