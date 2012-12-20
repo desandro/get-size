@@ -31,3 +31,8 @@ body {
 #ex2 .box {
   height: 100%;
 }
+
+#ex3 .box {
+  width: 50%;
+  height: 50%;
+}
