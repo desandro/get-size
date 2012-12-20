@@ -62,6 +62,11 @@ function measureStyle( style, property ) {
 
 // get width, innerWidth, outerWidth, height, innerHeight, outerHeight
 function getSize( elem ) {
+  // do not proceed on non-objects
+  if ( typeof elem !== 'object' ) {
+    return null;
+  }
+
   var size = {};
   size.width = elem.offsetWidth;
   size.height = elem.offsetHeight;
