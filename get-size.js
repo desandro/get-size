@@ -63,8 +63,8 @@ function measureStyle( style, property ) {
 // get width, innerWidth, outerWidth, height, innerHeight, outerHeight
 function getSize( elem ) {
   // do not proceed on non-objects
-  if ( typeof elem !== 'object' ) {
-    return null;
+  if ( typeof elem !== 'object' || !elem.nodeType ) {
+    return;
   }
 
   var size = {};
