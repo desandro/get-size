@@ -1,5 +1,6 @@
 /**
- * getSize - size utility helper
+ * getSize v0.0.1
+ * measure size of elements
  */
 
 /*jshint browser: true, strict: true, undef: true */
