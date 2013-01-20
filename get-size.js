@@ -1,5 +1,5 @@
 /**
- * getSize v0.0.1
+ * getSize v0.0.2
  * measure size of elements
  */
 
@@ -52,14 +52,22 @@ function getStyleProperty( propName ) {
 
 var supportsBoxSizing = getStyleProperty('boxSizing');
 
-// --------------------------  -------------------------- //
-
-function measureStyle( style, property ) {
-  var val = style[ property ];
-  return val ? parseInt( val, 10 ) : 0;
-}
-
 // -------------------------- getSize -------------------------- //
+
+var measurements = [
+  'paddingLeft',
+  'paddingRight',
+  'paddingTop',
+  'paddingBottom',
+  'marginLeft',
+  'marginRight',
+  'marginTop',
+  'marginBottom',
+  'borderLeftWidth',
+  'borderRightWidth',
+  'borderTopWidth',
+  'borderBottomWidth'
+];
 
 // get width, innerWidth, outerWidth, height, innerHeight, outerHeight
 function getSize( elem ) {
@@ -77,20 +85,19 @@ function getSize( elem ) {
   var isBorderBoxSizing = supportsBoxSizing &&
     style.boxSizing && style.boxSizing === 'border-box';
 
-  var paddingWidth = measureStyle( style, 'paddingLeft' ) +
-    measureStyle( style, 'paddingRight' );
-  var paddingHeight = measureStyle( style, 'paddingTop' ) +
-    measureStyle( style, 'paddingBottom' );
+  // get all measurements
+  for ( var i=0, len = measurements.length; i < len; i++ ) {
+    var measurement = measurements[i];
+    var value = style[ measurement ];
+    size[ measurement ] = value ? parseInt( value, 10 ) : 0;
+  }
 
-  var marginWidth = measureStyle( style, 'marginLeft' ) +
-    measureStyle( style, 'marginRight' );
-  var marginHeight = measureStyle( style, 'marginTop' ) +
-    measureStyle( style, 'marginBottom' );
-
-  var borderWidth = measureStyle( style, 'borderLeftWidth' ) +
-    measureStyle( style, 'borderRightWidth' );
-  var borderHeight = measureStyle( style, 'borderTopWidth' ) +
-    measureStyle( style, 'borderBottomWidth' );
+  var paddingWidth = size.paddingLeft + size.paddingRight;
+  var paddingHeight = size.paddingTop + size.paddingBottom;
+  var marginWidth = size.marginLeft + size.marginRight;
+  var marginHeight = size.marginTop + size.marginBottom;
+  var borderWidth = size.borderLeftWidth + size.borderRightWidth;
+  var borderHeight = size.borderTopWidth + size.borderBottomWidth;
 
   size.innerWidth = size.width - paddingWidth - borderWidth;
 
