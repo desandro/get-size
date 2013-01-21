@@ -1,5 +1,5 @@
 /**
- * getSize v0.0.2
+ * getSize v0.0.3
  * measure size of elements
  */
 
@@ -55,6 +55,8 @@ var supportsBoxSizing = getStyleProperty('boxSizing');
 // -------------------------- getSize -------------------------- //
 
 var measurements = [
+  'width',
+  'height',
   'paddingLeft',
   'paddingRight',
   'paddingTop',
@@ -77,8 +79,6 @@ function getSize( elem ) {
   }
 
   var size = {};
-  size.width = elem.offsetWidth;
-  size.height = elem.offsetHeight;
 
   var style = getStyle( elem );
 
@@ -89,7 +89,7 @@ function getSize( elem ) {
   for ( var i=0, len = measurements.length; i < len; i++ ) {
     var measurement = measurements[i];
     var value = style[ measurement ];
-    size[ measurement ] = value ? parseInt( value, 10 ) : 0;
+    size[ measurement ] = value ? parseFloat( value ) : 0;
   }
 
   var paddingWidth = size.paddingLeft + size.paddingRight;
@@ -99,13 +99,13 @@ function getSize( elem ) {
   var borderWidth = size.borderLeftWidth + size.borderRightWidth;
   var borderHeight = size.borderTopWidth + size.borderBottomWidth;
 
-  size.innerWidth = size.width - paddingWidth - borderWidth;
+  size.innerWidth = size.width;
 
-  size.innerHeight = size.height - paddingHeight - borderHeight;
+  size.innerHeight = size.height;
 
-  size.outerWidth = size.width + marginWidth;
+  size.outerWidth = size.width + paddingWidth + borderWidth + marginWidth;
 
-  size.outerHeight = size.height + marginHeight;
+  size.outerHeight = size.height + paddingHeight + borderHeight + marginHeight;
 
   return size;
 

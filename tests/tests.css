@@ -62,3 +62,9 @@ body {
   padding: 10px 20px 30px 40px;
 }
 
+#ex8 .box {
+  position: relative;
+  width: 66.6666%;
+  height: 66.666%;
+}
+
