@@ -27,8 +27,6 @@ var getStyle = defView && defView.getComputedStyle ?
 // -------------------------- getSize -------------------------- //
 
 var measurements = [
-  'width',
-  'height',
   'paddingLeft',
   'paddingRight',
   'paddingTop',
@@ -45,7 +43,6 @@ var measurements = [
 
 var supportsBoxSizing = getStyleProperty('boxSizing');
 
-// get width, innerWidth, outerWidth, height, innerHeight, outerHeight
 function getSize( elem ) {
   // do not proceed on non-objects
   if ( typeof elem !== 'object' || !elem.nodeType ) {
@@ -53,6 +50,8 @@ function getSize( elem ) {
   }
 
   var size = {};
+  size.width = elem.offsetWidth;
+  size.height = elem.offsetHeight;
 
   var style = getStyle( elem );
 
@@ -63,7 +62,9 @@ function getSize( elem ) {
   for ( var i=0, len = measurements.length; i < len; i++ ) {
     var measurement = measurements[i];
     var value = style[ measurement ];
-    size[ measurement ] = value ? parseFloat( value ) : 0;
+    var num = parseFloat( value );
+    // any 'auto', 'medium' value will be 0
+    size[ measurement ] = !isNaN( num ) ? num : 0;
   }
 
   var paddingWidth = size.paddingLeft + size.paddingRight;
@@ -73,16 +74,31 @@ function getSize( elem ) {
   var borderWidth = size.borderLeftWidth + size.borderRightWidth;
   var borderHeight = size.borderTopWidth + size.borderBottomWidth;
 
-  size.innerWidth = size.width;
+  // overwrite width and height if we can get it from style
+  var styleWidth = getStyleSize( style.width );
+  if ( styleWidth !== false ) {
+    size.width = styleWidth + paddingWidth + borderWidth;
+  }
 
-  size.innerHeight = size.height;
+  var styleHeight = getStyleSize( style.height );
+  if ( styleHeight !== false ) {
+    size.height = styleHeight + paddingHeight + borderHeight;
+  }
 
-  size.outerWidth = size.width + paddingWidth + borderWidth + marginWidth;
+  size.innerWidth = size.width - ( paddingWidth + borderWidth );
+  size.innerHeight = size.height - ( paddingHeight + borderHeight );
 
-  size.outerHeight = size.height + paddingHeight + borderHeight + marginHeight;
+  size.outerWidth = size.width + marginWidth;
+  size.outerHeight = size.height + marginHeight;
 
   return size;
+}
 
+function getStyleSize( value ) {
+  var num = parseFloat( value );
+  // not a percent like '100%', and a number
+  var isValid = value.indexOf('%') === -1 && !isNaN( num );
+  return isValid && num;
 }
 
 window.getSize = getSize;
