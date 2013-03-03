@@ -77,12 +77,16 @@ function getSize( elem ) {
   // overwrite width and height if we can get it from style
   var styleWidth = getStyleSize( style.width );
   if ( styleWidth !== false ) {
-    size.width = styleWidth + paddingWidth + borderWidth;
+    size.width = styleWidth +
+      // add padding and border if not border box
+      ( isBorderBoxSizing ? 0 : paddingWidth + borderWidth );
   }
 
   var styleHeight = getStyleSize( style.height );
   if ( styleHeight !== false ) {
-    size.height = styleHeight + paddingHeight + borderHeight;
+    size.height = styleHeight +
+      // add padding and border if not border box
+      ( isBorderBoxSizing ? 0 : paddingHeight + borderHeight );
   }
 
   size.innerWidth = size.width - ( paddingWidth + borderWidth );

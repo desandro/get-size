@@ -17,8 +17,6 @@ function getBoxSize( num ) {
 
 window.onload = function() {
 
-
-
 test( 'bad arguments', function() {
   equal( getSize( 0 ), null, 'Number returns null' );
 });
@@ -113,6 +111,21 @@ test( 'ex8: 66.666% values', function() {
     equal( size.height, 133, 'width is 133' );
   }
 });
+
+var supportsBoxSizing = window.getStyleProperty('boxSizing');
+
+if ( supportsBoxSizing ) {
+  test( 'ex9: border-box', function() {
+    var size = getBoxSize(9);
+
+    equal( size.width, 400, 'width' );
+    equal( size.height, 200, 'height' );
+    equal( size.innerWidth, 280, 'innerWidth' );
+    equal( size.innerHeight, 120, 'innerHeight' );
+    equal( size.outerWidth, 400, 'outerWidth' );
+    equal( size.outerHeight, 200, 'outerHeight' );
+  });
+}
 
 }; // onload
 
