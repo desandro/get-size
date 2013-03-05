@@ -25,6 +25,7 @@ test( 'ex1: no styling', function() {
   var size = getBoxSize(1);
   equal( size.width, 400, 'Inherit container width' );
   equal( size.height, 0, 'No height' );
+  equal( size.isBorderBox, false, 'isBorderBox' );
 });
 
 test( 'ex2: height: 100%', function() {
@@ -117,7 +118,7 @@ var supportsBoxSizing = window.getStyleProperty('boxSizing');
 if ( supportsBoxSizing ) {
   test( 'ex9: border-box', function() {
     var size = getBoxSize(9);
-
+    equal( size.isBorderBox, true, 'isBorderBox' );
     equal( size.width, 400, 'width' );
     equal( size.height, 200, 'height' );
     equal( size.innerWidth, 280, 'innerWidth' );

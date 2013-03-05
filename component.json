@@ -1,6 +1,6 @@
 {
   "name": "get-size",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "main": "get-size.js",
   "dependencies": {
     "get-style-property": "desandro/get-style-property"

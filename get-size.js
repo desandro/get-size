@@ -55,7 +55,7 @@ function getSize( elem ) {
 
   var style = getStyle( elem );
 
-  var isBorderBoxSizing = supportsBoxSizing &&
+  var isBorderBox = size.isBorderBox = supportsBoxSizing &&
     style.boxSizing && style.boxSizing === 'border-box';
 
   // get all measurements
@@ -79,14 +79,14 @@ function getSize( elem ) {
   if ( styleWidth !== false ) {
     size.width = styleWidth +
       // add padding and border if not border box
-      ( isBorderBoxSizing ? 0 : paddingWidth + borderWidth );
+      ( isBorderBox ? 0 : paddingWidth + borderWidth );
   }
 
   var styleHeight = getStyleSize( style.height );
   if ( styleHeight !== false ) {
     size.height = styleHeight +
       // add padding and border if not border box
-      ( isBorderBoxSizing ? 0 : paddingHeight + borderHeight );
+      ( isBorderBox ? 0 : paddingHeight + borderHeight );
   }
 
   size.innerWidth = size.width - ( paddingWidth + borderWidth );
