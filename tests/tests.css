@@ -78,11 +78,3 @@ body {
   border-width: 10px 20px 30px 40px;
   padding: 10px 20px 30px 40px;
 }
-
-/*#ex9 .box {
-  -webkit-box-sizing: border-box;
-     -moz-box-sizing: border-box;
-          box-sizing: border-box;
-  height: 100%;
-  padding: 10px 20px 30px 40px;
-}*/

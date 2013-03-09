@@ -1,9 +1,9 @@
 /**
- * getSize v0.0.3
+ * getSize v0.0.8
  * measure size of elements
  */
 
-/*jshint browser: true, strict: true, undef: true */
+/*jshint browser: true, strict: true, undef: true, unused: true */
 
 ( function( window, undefined ) {
 
@@ -24,6 +24,35 @@ var getStyle = defView && defView.getComputedStyle ?
     return elem.currentStyle;
   };
 
+// -------------------------- box sizing -------------------------- //
+
+var boxSizingProp = getStyleProperty('boxSizing');
+var isBoxSizeOuter;
+
+/**
+ * WebKit measures the outer-width on style.width on border-box elems
+ * IE & Firefox measures the inner-width
+ */
+( function() {
+  if ( !boxSizingProp ) {
+    return;
+  }
+
+  var div = document.createElement('div');
+  div.style.width = '200px';
+  div.style.padding = '1px 2px 3px 4px';
+  div.style.borderStyle = 'solid';
+  div.style.borderWidth = '1px 2px 3px 4px';
+  div.style[ boxSizingProp ] = 'border-box';
+
+  var body = document.querySelector('body') || document.createElement('body');
+  body.appendChild( div );
+  var style = getStyle( div );
+
+  isBoxSizeOuter = getStyleSize( style.width ) === 200;
+  body.removeChild( div );
+})();
+
 // -------------------------- getSize -------------------------- //
 
 var measurements = [
@@ -41,8 +70,6 @@ var measurements = [
   'borderBottomWidth'
 ];
 
-var supportsBoxSizing = getStyleProperty('boxSizing');
-
 function getSize( elem ) {
   // do not proceed on non-objects
   if ( typeof elem !== 'object' || !elem.nodeType ) {
@@ -55,8 +82,8 @@ function getSize( elem ) {
 
   var style = getStyle( elem );
 
-  var isBorderBox = size.isBorderBox = supportsBoxSizing &&
-    style.boxSizing && style.boxSizing === 'border-box';
+  var isBorderBox = size.isBorderBox = !!( boxSizingProp &&
+    style[ boxSizingProp ] && style[ boxSizingProp ] === 'border-box' );
 
   // get all measurements
   for ( var i=0, len = measurements.length; i < len; i++ ) {
@@ -74,19 +101,21 @@ function getSize( elem ) {
   var borderWidth = size.borderLeftWidth + size.borderRightWidth;
   var borderHeight = size.borderTopWidth + size.borderBottomWidth;
 
+  var isBorderBoxSizeOuter = isBorderBox && isBoxSizeOuter;
+
   // overwrite width and height if we can get it from style
   var styleWidth = getStyleSize( style.width );
   if ( styleWidth !== false ) {
     size.width = styleWidth +
-      // add padding and border if not border box
-      ( isBorderBox ? 0 : paddingWidth + borderWidth );
+      // add padding and border unless it's already including it
+      ( isBorderBoxSizeOuter ? 0 : paddingWidth + borderWidth );
   }
 
   var styleHeight = getStyleSize( style.height );
   if ( styleHeight !== false ) {
     size.height = styleHeight +
-      // add padding and border if not border box
-      ( isBorderBox ? 0 : paddingHeight + borderHeight );
+      // add padding and border unless it's already including it
+      ( isBorderBoxSizeOuter ? 0 : paddingHeight + borderHeight );
   }
 
   size.innerWidth = size.width - ( paddingWidth + borderWidth );
