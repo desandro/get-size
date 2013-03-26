@@ -1,5 +1,5 @@
 /**
- * getSize v0.0.8
+ * getSize v1.0.0
  * measure size of elements
  */
 
@@ -45,7 +45,7 @@ var isBoxSizeOuter;
   div.style.borderWidth = '1px 2px 3px 4px';
   div.style[ boxSizingProp ] = 'border-box';
 
-  var body = document.querySelector('body') || document.createElement('body');
+  var body = document.body || document.documentElement;
   body.appendChild( div );
   var style = getStyle( div );
 
