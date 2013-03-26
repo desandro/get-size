@@ -4,5 +4,8 @@
   "main": "get-size.js",
   "dependencies": {
     "get-style-property": "desandro/get-style-property"
+  },
+  "devDependencies": {
+    "qunit": "~1.10"
   }
 }
