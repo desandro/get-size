@@ -1,5 +1,5 @@
 /**
- * getSize v1.0.0
+ * getSize v1.1.0
  * measure size of elements
  */
 
@@ -53,7 +53,7 @@ var isBoxSizeOuter;
   body.removeChild( div );
 })();
 
-// -------------------------- getSize -------------------------- //
+// -------------------------- measurements -------------------------- //
 
 var measurements = [
   'paddingLeft',
@@ -70,17 +70,40 @@ var measurements = [
   'borderBottomWidth'
 ];
 
+function getZeroSize() {
+  var size = {
+    width: 0,
+    height: 0,
+    innerWidth: 0,
+    innerHeight: 0,
+    outerWidth: 0,
+    outerHeight: 0
+  };
+  for ( var i=0, len = measurements.length; i < len; i++ ) {
+    var measurement = measurements[i];
+    size[ measurement ] = 0;
+  }
+  return size;
+}
+
+// -------------------------- getSize -------------------------- //
+
 function getSize( elem ) {
   // do not proceed on non-objects
   if ( typeof elem !== 'object' || !elem.nodeType ) {
     return;
   }
 
+  var style = getStyle( elem );
+
+  // if hidden, everything is 0
+  if ( style.display === 'none' ) {
+    return getZeroSize();
+  }
+
   var size = {};
   size.width = elem.offsetWidth;
   size.height = elem.offsetHeight;
-
-  var style = getStyle( elem );
 
   var isBorderBox = size.isBorderBox = !!( boxSizingProp &&
     style[ boxSizingProp ] && style[ boxSizingProp ] === 'border-box' );

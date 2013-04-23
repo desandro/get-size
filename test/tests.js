@@ -15,8 +15,6 @@ function getBoxSize( num ) {
   return getSize( box );
 }
 
-window.onload = function() {
-
 test( 'bad arguments', function() {
   equal( getSize( 0 ), null, 'Number returns null' );
 });
@@ -128,6 +126,21 @@ if ( supportsBoxSizing ) {
   });
 }
 
-}; // onload
+test( 'display: none', function() {
+  var size = getSize( document.querySelector('#hidden .box1') );
+  strictEqual( size.width, 0, 'width' );
+  strictEqual( size.height, 0, 'height' );
+  strictEqual( size.innerWidth, 0, 'innerWidth' );
+  strictEqual( size.innerHeight, 0, 'innerHeight' );
+  strictEqual( size.outerWidth, 0, 'outerWidth' );
+  strictEqual( size.outerHeight, 0, 'outerHeight' );
+
+  size.width = 300;
+
+  size = getSize( document.querySelector('#hidden .box2') );
+  strictEqual( size.width, 0, 'cannot over write zeroSize' );
+
+});
+
 
 })( window );

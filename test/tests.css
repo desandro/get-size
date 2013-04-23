@@ -78,3 +78,11 @@ body {
   border-width: 10px 20px 30px 40px;
   padding: 10px 20px 30px 40px;
 }
+
+#hidden .box {
+  display: none;
+  width: 200px;
+  height: 100px;
+  padding: 10px 20px 30px 40px;
+  margin: 10px 20px 30px 40px;
+}
