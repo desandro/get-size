@@ -1,16 +1,14 @@
 /**
- * getSize v1.1.0
+ * getSize v1.1.1
  * measure size of elements
  */
 
 /*jshint browser: true, strict: true, undef: true, unused: true */
+/*global define: true */
 
 ( function( window, undefined ) {
 
 'use strict';
-
-// dependencies
-var getStyleProperty = window.getStyleProperty;
 
 // -------------------------- helpers -------------------------- //
 
@@ -24,34 +22,13 @@ var getStyle = defView && defView.getComputedStyle ?
     return elem.currentStyle;
   };
 
-// -------------------------- box sizing -------------------------- //
-
-var boxSizingProp = getStyleProperty('boxSizing');
-var isBoxSizeOuter;
-
-/**
- * WebKit measures the outer-width on style.width on border-box elems
- * IE & Firefox measures the inner-width
- */
-( function() {
-  if ( !boxSizingProp ) {
-    return;
-  }
-
-  var div = document.createElement('div');
-  div.style.width = '200px';
-  div.style.padding = '1px 2px 3px 4px';
-  div.style.borderStyle = 'solid';
-  div.style.borderWidth = '1px 2px 3px 4px';
-  div.style[ boxSizingProp ] = 'border-box';
-
-  var body = document.body || document.documentElement;
-  body.appendChild( div );
-  var style = getStyle( div );
-
-  isBoxSizeOuter = getStyleSize( style.width ) === 200;
-  body.removeChild( div );
-})();
+// get a number from a string, not a percentage
+function getStyleSize( value ) {
+  var num = parseFloat( value );
+  // not a percent like '100%', and a number
+  var isValid = value.indexOf('%') === -1 && !isNaN( num );
+  return isValid && num;
+}
 
 // -------------------------- measurements -------------------------- //
 
@@ -85,6 +62,40 @@ function getZeroSize() {
   }
   return size;
 }
+
+
+
+function defineGetSize( getStyleProperty ) {
+
+// -------------------------- box sizing -------------------------- //
+
+var boxSizingProp = getStyleProperty('boxSizing');
+var isBoxSizeOuter;
+
+/**
+ * WebKit measures the outer-width on style.width on border-box elems
+ * IE & Firefox measures the inner-width
+ */
+( function() {
+  if ( !boxSizingProp ) {
+    return;
+  }
+
+  var div = document.createElement('div');
+  div.style.width = '200px';
+  div.style.padding = '1px 2px 3px 4px';
+  div.style.borderStyle = 'solid';
+  div.style.borderWidth = '1px 2px 3px 4px';
+  div.style[ boxSizingProp ] = 'border-box';
+
+  var body = document.body || document.documentElement;
+  body.appendChild( div );
+  var style = getStyle( div );
+
+  isBoxSizeOuter = getStyleSize( style.width ) === 200;
+  body.removeChild( div );
+})();
+
 
 // -------------------------- getSize -------------------------- //
 
@@ -150,13 +161,17 @@ function getSize( elem ) {
   return size;
 }
 
-function getStyleSize( value ) {
-  var num = parseFloat( value );
-  // not a percent like '100%', and a number
-  var isValid = value.indexOf('%') === -1 && !isNaN( num );
-  return isValid && num;
+return getSize;
+
 }
 
-window.getSize = getSize;
+// transport
+if ( typeof define === 'function' && define.amd ) {
+  // AMD
+  define( [ 'get-style-property' ], defineGetSize );
+} else {
+  // browser global
+  window.getSize = defineGetSize( window.getStyleProperty );
+}
 
 })( window );
