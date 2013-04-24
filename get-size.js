@@ -4,7 +4,7 @@
  */
 
 /*jshint browser: true, strict: true, undef: true, unused: true */
-/*global define: true */
+/*global define: false */
 
 ( function( window, undefined ) {
 
