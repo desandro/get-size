@@ -1,5 +1,5 @@
 /**
- * getSize v1.1.1
+ * getSize v1.1.2
  * measure size of elements
  */
 
