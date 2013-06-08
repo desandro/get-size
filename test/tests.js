@@ -4,7 +4,7 @@
 **/
 
 /*jshint browser: true, devel: true, strict: true, undef: true */
-/*global equal: false, getSize: false, ok: false, test: false */
+/*global equal: false, getSize: false, ok: false, test: false, strictEqual: false */
 
 ( function( window ) {
 
@@ -15,8 +15,10 @@ function getBoxSize( num ) {
   return getSize( box );
 }
 
-test( 'bad arguments', function() {
-  equal( getSize( 0 ), null, 'Number returns null' );
+test( 'arguments', function() {
+  ok( !getSize( 0 ), 'Number returns falsey' );
+  ok( !getSize( document.querySelector('#foobabbles') ), 'bad querySelector returns falsey' );
+  ok( getSize('#ex1'), 'query selector string works' );
 });
 
 test( 'ex1: no styling', function() {

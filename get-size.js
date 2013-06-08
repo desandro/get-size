@@ -1,5 +1,5 @@
 /**
- * getSize v1.1.2
+ * getSize v1.1.3
  * measure size of elements
  */
 
@@ -100,8 +100,13 @@ var isBoxSizeOuter;
 // -------------------------- getSize -------------------------- //
 
 function getSize( elem ) {
+  // use querySeletor if elem is string
+  if ( typeof elem === 'string' ) {
+    elem = document.querySelector( elem );
+  }
+
   // do not proceed on non-objects
-  if ( typeof elem !== 'object' || !elem.nodeType ) {
+  if ( !elem || typeof elem !== 'object' || !elem.nodeType ) {
     return;
   }
 
