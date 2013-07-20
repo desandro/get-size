@@ -1,5 +1,5 @@
 /**
- * getSize v1.1.3
+ * getSize v1.1.4
  * measure size of elements
  */
 
@@ -173,7 +173,7 @@ return getSize;
 // transport
 if ( typeof define === 'function' && define.amd ) {
   // AMD
-  define( [ 'get-style-property' ], defineGetSize );
+  define( [ 'get-style-property/get-style-property' ], defineGetSize );
 } else {
   // browser global
   window.getSize = defineGetSize( window.getStyleProperty );
