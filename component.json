@@ -1,0 +1,10 @@
+{
+  "name": "get-size",
+  "repo": "desandro/get-size",
+  "description": "getSize - Measure elements",
+  "version": "1.1.5",
+  "dependencies": {
+    "desandro/get-style-property": "*"
+  },
+  "scripts": ["get-size.js"]
+}
