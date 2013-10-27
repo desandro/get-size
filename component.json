@@ -6,5 +6,6 @@
   "dependencies": {
     "desandro/get-style-property": "*"
   },
-  "scripts": ["get-size.js"]
+  "scripts": ["get-size.js"],
+  "main": "get-size.js"
 }
