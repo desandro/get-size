@@ -176,23 +176,23 @@ function mungeNonPixel( elem, value ) {
     return value;
   }
   var style = elem.style;
-	// Remember the original values
-	var left = style.left;
-	var rs = elem.runtimeStyle;
-	var rsLeft = rs && rs.left;
+  // Remember the original values
+  var left = style.left;
+  var rs = elem.runtimeStyle;
+  var rsLeft = rs && rs.left;
 
-	// Put in the new values to get a computed value out
-	if ( rsLeft ) {
-		rs.left = elem.currentStyle.left;
-	}
-	style.left = value;
-	value = style.pixelLeft;
+  // Put in the new values to get a computed value out
+  if ( rsLeft ) {
+    rs.left = elem.currentStyle.left;
+  }
+  style.left = value;
+  value = style.pixelLeft;
 
-	// Revert the changed values
-	style.left = left;
-	if ( rsLeft ) {
-		rs.left = rsLeft;
-	}
+  // Revert the changed values
+  style.left = left;
+  if ( rsLeft ) {
+    rs.left = rsLeft;
+  }
 
   return value;
 }
