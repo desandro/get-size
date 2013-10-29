@@ -1,10 +1,10 @@
 /**
- * getSize v1.1.5
+ * getSize v1.1.6
  * measure size of elements
  */
 
 /*jshint browser: true, strict: true, undef: true, unused: true */
-/*global define: false */
+/*global define: false, exports: false, require: false, module: false */
 
 ( function( window, undefined ) {
 
@@ -203,8 +203,11 @@ return getSize;
 
 // transport
 if ( typeof define === 'function' && define.amd ) {
-  // AMD
+  // AMD for RequireJS
   define( [ 'get-style-property/get-style-property' ], defineGetSize );
+} else if ( typeof exports === 'object' ) {
+  // CommonJS for Component
+  module.exports = defineGetSize( require('get-style-property') );
 } else {
   // browser global
   window.getSize = defineGetSize( window.getStyleProperty );
