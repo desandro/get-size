@@ -1,6 +1,7 @@
-/**
+/*!
  * getSize v1.1.7
  * measure size of elements
+ * MIT license
  */
 
 /*jshint browser: true, strict: true, undef: true, unused: true */

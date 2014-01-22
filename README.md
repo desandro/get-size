@@ -31,3 +31,7 @@ component install desandro/get-size
 ## Fractional values in IE8
 
 For percentage or `em`-based sizes, IE8 does not support fractional values. getSize will round to the nearest value.
+
+## MIT License
+
+getSize is released under the [MIT License](http://desandro.mit-license.org/).
