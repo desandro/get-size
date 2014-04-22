@@ -8,5 +8,11 @@
   },
   "devDependencies": {
     "qunit": "~1.10"
-  }
+  },
+  "ignore": [
+    "test/",
+    "**/.*",
+    "package.json",
+    "component.json"
+  ]
 }

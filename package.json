@@ -13,12 +13,17 @@
     "type": "git",
     "url": "https://github.com/desandro/get-size.git"
   },
+  "keywords": [
+    "size",
+    "DOM"
+  ],
+  "author": "David DeSandro",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/desandro/get-size/issues"
   },
   "homepage": "https://github.com/desandro/get-size",
   "dependencies": {
-    "get-style-property": "https://github.com/wbinnssmith/get-style-property/archive/packagejson.tar.gz"
+    "get-style-property": "desandro/get-style-property"
   }
 }
