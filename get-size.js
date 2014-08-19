@@ -14,13 +14,18 @@
 // -------------------------- helpers -------------------------- //
 
 var getComputedStyle = window.getComputedStyle;
-var getStyle = getComputedStyle ?
-  function( elem ) {
-    return getComputedStyle( elem, null );
-  } :
-  function( elem ) {
-    return elem.currentStyle;
-  };
+var getStyle = function(el) {
+    var style = getComputedStyle ?  getComputedStyle(el, null) : false;
+    if (style) {
+        return style;
+    }else if (el.currentStyle) {
+        return el.currentStyle;
+    }else if (el.style) {
+        return el.style;
+    } else {
+        return {};
+    }
+};
 
 // get a number from a string, not a percentage
 function getStyleSize( value ) {
