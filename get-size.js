@@ -26,7 +26,7 @@ var getStyle = getComputedStyle ?
 function getStyleSize( value ) {
   var num = parseFloat( value );
   // not a percent like '100%', and a number
-  var isValid = value.indexOf('%') === -1 && !isNaN( num );
+  var isValid = !isNaN( num ) && value.indexOf('%') === -1;
   return isValid && num;
 }
 
