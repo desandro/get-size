@@ -13,6 +13,26 @@
     "test/",
     "**/.*",
     "package.json",
-    "component.json"
-  ]
+    "component.json",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "homepage": "https://github.com/desandro/get-size",
+  "authors": [
+    "David DeSandro <desandrocodes@gmail.com>"
+  ],
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "keywords": [
+    "size",
+    "dom",
+    "width",
+    "height"
+  ],
+  "license": "MIT"
 }
