@@ -16,17 +16,9 @@ Tested in IE8, IE9 and good browsers.
 
 ## Install
 
-Install with [Bower](http://bower.io) :bird:
+Install with [Bower](http://bower.io) :bird:: `bower install get-size`
 
-``` bash
-bower install desandro/get-size
-```
-
-Or [Component](http://github.com/component/component)
-
-``` bash
-component install desandro/get-size
-```
+Install with npm: `npm install get-size`
 
 ## Fractional values in IE8
 
