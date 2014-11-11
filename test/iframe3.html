@@ -1,0 +1,72 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+
+  <title>iframe3</title>
+
+    <script src="../bower_components/get-style-property/get-style-property.js"></script>
+    <script>
+    ( function() {
+    // -------------------------- helpers -------------------------- //
+
+
+    console.log( window.getComputedStyle );
+    var getComputedStyle = window.getComputedStyle;
+    var getStyle = getComputedStyle ?
+      function( elem ) {
+        return getComputedStyle( elem, null );
+      } :
+      function( elem ) {
+        return elem.currentStyle;
+      };
+
+    // get a number from a string, not a percentage
+    function getStyleSize( value ) {
+      var num = parseFloat( value );
+      // not a percent like '100%', and a number
+      var isValid = value.indexOf('%') === -1 && !isNaN( num );
+      return isValid && num;
+    }
+
+    var boxSizingProp = getStyleProperty('boxSizing');
+    var isBoxSizeOuter;
+
+    ( function() {
+      if ( !boxSizingProp ) {
+        return;
+      }
+
+      var div = document.createElement('div');
+      div.style.width = '200px';
+      div.style.padding = '1px 2px 3px 4px';
+      div.style.borderStyle = 'solid';
+      div.style.borderWidth = '1px 2px 3px 4px';
+      div.style[ boxSizingProp ] = 'border-box';
+
+      var body = document.body || document.documentElement;
+      body.appendChild( div );
+      var style = getStyle( div );
+
+      isBoxSizeOuter = getStyleSize( style.width ) === 200;
+      body.removeChild( div );
+    })();
+
+
+    var p = document.createElement('p');
+    p.textContent = isBoxSizeOuter;
+    var body = document.body || document.documentElement;
+    body.appendChild( p );
+    console.log( isBoxSizeOuter );
+
+    } )()
+    </script>
+</head>
+<body>
+
+  <h1>iframe3</h1>
+
+
+
+</body>
+</html>
