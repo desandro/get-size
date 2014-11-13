@@ -21,6 +21,11 @@ function getStyleSize( value ) {
   return isValid && num;
 }
 
+var logError = typeof console === 'undefined' ? noop :
+  function( message ) {
+    console.error( message );
+  };
+
 // -------------------------- measurements -------------------------- //
 
 var measurements = [
@@ -77,17 +82,28 @@ function setup() {
   isSetup = true;
 
   var getComputedStyle = window.getComputedStyle;
-  getStyle = getComputedStyle ?
-    function( elem ) {
-      return getComputedStyle( elem, null );
-    } :
-    function( elem ) {
-      return elem.currentStyle;
-    };
+  getStyle = ( function() {
+    var getStyleFn = getComputedStyle ?
+      function( elem ) {
+        return getComputedStyle( elem, null );
+      } :
+      function( elem ) {
+        return elem.currentStyle;
+      };
 
-  boxSizingProp = getStyleProperty('boxSizing');
+      return function getStyle( elem ) {
+        var style = getStyleFn( elem );
+        if ( !style ) {
+          logError( 'style returned ' + style +
+            '. Are you running this code in a hidden iframe on Firefox? Seehttp://j.mp/getsizeiframe');
+        }
+        return style;
+      }
+  })();
 
   // -------------------------- box sizing -------------------------- //
+
+  boxSizingProp = getStyleProperty('boxSizing');
 
   /**
    * WebKit measures the outer-width on style.width on border-box elems
