@@ -13,15 +13,6 @@
 
 // -------------------------- helpers -------------------------- //
 
-var getComputedStyle = window.getComputedStyle;
-var getStyle = getComputedStyle ?
-  function( elem ) {
-    return getComputedStyle( elem, null );
-  } :
-  function( elem ) {
-    return elem.currentStyle;
-  };
-
 // get a number from a string, not a percentage
 function getStyleSize( value ) {
   var num = parseFloat( value );
@@ -67,39 +58,64 @@ function getZeroSize() {
 
 function defineGetSize( getStyleProperty ) {
 
-// -------------------------- box sizing -------------------------- //
+// -------------------------- setup -------------------------- //
 
-var boxSizingProp = getStyleProperty('boxSizing');
-var isBoxSizeOuter;
+var isSetup = false;
+
+var getStyle, boxSizingProp, isBoxSizeOuter;
 
 /**
- * WebKit measures the outer-width on style.width on border-box elems
- * IE & Firefox measures the inner-width
+ * setup vars and functions
+ * do it on initial getSize(), rather than on script load
+ * For Firefox bug https://bugzilla.mozilla.org/show_bug.cgi?id=548397
  */
-( function() {
-  if ( !boxSizingProp ) {
+function setup() {
+  // setup once
+  if ( isSetup ) {
     return;
   }
+  isSetup = true;
 
-  var div = document.createElement('div');
-  div.style.width = '200px';
-  div.style.padding = '1px 2px 3px 4px';
-  div.style.borderStyle = 'solid';
-  div.style.borderWidth = '1px 2px 3px 4px';
-  div.style[ boxSizingProp ] = 'border-box';
+  var getComputedStyle = window.getComputedStyle;
+  getStyle = getComputedStyle ?
+    function( elem ) {
+      return getComputedStyle( elem, null );
+    } :
+    function( elem ) {
+      return elem.currentStyle;
+    };
 
-  var body = document.body || document.documentElement;
-  body.appendChild( div );
-  var style = getStyle( div );
+  boxSizingProp = getStyleProperty('boxSizing');
 
-  isBoxSizeOuter = getStyleSize( style.width ) === 200;
-  body.removeChild( div );
-})();
+  // -------------------------- box sizing -------------------------- //
 
+  /**
+   * WebKit measures the outer-width on style.width on border-box elems
+   * IE & Firefox measures the inner-width
+   */
+  if ( boxSizingProp ) {
+    var div = document.createElement('div');
+    div.style.width = '200px';
+    div.style.padding = '1px 2px 3px 4px';
+    div.style.borderStyle = 'solid';
+    div.style.borderWidth = '1px 2px 3px 4px';
+    div.style[ boxSizingProp ] = 'border-box';
+
+    var body = document.body || document.documentElement;
+    body.appendChild( div );
+    var style = getStyle( div );
+
+    isBoxSizeOuter = getStyleSize( style.width ) === 200;
+    body.removeChild( div );
+  }
+
+}
 
 // -------------------------- getSize -------------------------- //
 
 function getSize( elem ) {
+  setup();
+
   // use querySeletor if elem is string
   if ( typeof elem === 'string' ) {
     elem = document.querySelector( elem );
