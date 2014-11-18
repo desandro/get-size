@@ -1,5 +1,5 @@
 /*!
- * getSize v1.1.8
+ * getSize v1.2.0
  * measure size of elements
  * MIT license
  */
