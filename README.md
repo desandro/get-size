@@ -16,9 +16,21 @@ Tested in IE8, IE9 and good browsers.
 
 ## Install
 
-Install with [Bower](http://bower.io) :bird:: `bower install get-size`
+Install with [Bower](http://bower.io): `bower install get-size`
 
 Install with npm: `npm install get-size`
+
+## Firefox hidden iframe bug
+
+[Firefox has an old bug](https://bugzilla.mozilla.org/show_bug.cgi?id=548397) that occurs within iframes that are hidden with `display: none`. To resolve this, you can use alternate CSS to hide the iframe off-screen, with out `display: none`.
+
+``` css
+.hide-iframe {
+  visibility: hidden;
+  position: absolute;
+  left: -999em;
+}
+```
 
 ## Fractional values in IE8
 

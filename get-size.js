@@ -94,8 +94,9 @@ function setup() {
       return function getStyle( elem ) {
         var style = getStyleFn( elem );
         if ( !style ) {
-          logError( 'style returned ' + style +
-            '. Are you running this code in a hidden iframe on Firefox? Seehttp://j.mp/getsizeiframe');
+          logError( 'Style returned ' + style +
+            '. Are you running this code in a hidden iframe on Firefox? ' +
+            'See http://bit.ly/getsizeiframe' );
         }
         return style;
       }
