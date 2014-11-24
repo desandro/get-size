@@ -1,11 +1,11 @@
 /*!
- * getSize v1.2.0
+ * getSize v1.2.1
  * measure size of elements
  * MIT license
  */
 
 /*jshint browser: true, strict: true, undef: true, unused: true */
-/*global define: false, exports: false, require: false, module: false */
+/*global define: false, exports: false, require: false, module: false, console: false */
 
 ( function( window, undefined ) {
 
@@ -20,6 +20,8 @@ function getStyleSize( value ) {
   var isValid = value.indexOf('%') === -1 && !isNaN( num );
   return isValid && num;
 }
+
+function noop() {}
 
 var logError = typeof console === 'undefined' ? noop :
   function( message ) {
@@ -99,7 +101,7 @@ function setup() {
             'See http://bit.ly/getsizebug1' );
         }
         return style;
-      }
+      };
   })();
 
   // -------------------------- box sizing -------------------------- //

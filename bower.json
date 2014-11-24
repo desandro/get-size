@@ -1,10 +1,10 @@
 {
   "name": "get-size",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "main": "get-size.js",
   "description": "measures element size",
   "dependencies": {
-    "get-style-property": "desandro/get-style-property"
+    "get-style-property": "1.x"
   },
   "devDependencies": {
     "qunit": "~1.10"
