@@ -2,7 +2,7 @@
   "name": "get-size",
   "repo": "desandro/get-size",
   "description": "measures element size",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "dependencies": {
     "desandro/get-style-property": "*"
   },
