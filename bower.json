@@ -17,7 +17,8 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "sandbox.html"
   ],
   "homepage": "https://github.com/desandro/get-size",
   "authors": [
