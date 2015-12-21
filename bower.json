@@ -13,7 +13,6 @@
     "test/",
     "**/.*",
     "package.json",
-    "component.json",
     "node_modules",
     "bower_components",
     "test",
