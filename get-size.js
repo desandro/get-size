@@ -5,34 +5,23 @@
  */
 
 /*jshint browser: true, strict: true, undef: true, unused: true */
-/*global define: false, require: false, module: false, console: false */
+/*global define: false, module: false, console: false */
 
 ( function( window, factory ) {
   'use strict';
 
   if ( typeof define == 'function' && define.amd ) {
     // AMD
-    define( [
-        'get-style-property/get-style-property'
-      ],
-      function( getStyleProperty ) {
-        return factory( window, getStyleProperty );
-      });
+    define( factory( window ) );
   } else if ( typeof module == 'object' && module.exports ) {
     // CommonJS
-    module.exports = factory(
-      window,
-      require('desandro-get-style-property')
-    );
+    module.exports = factory( window );
   } else {
     // browser global
-    window.getSize = factory(
-      window,
-      window.getStyleProperty
-    );
+    window.getSize = factory( window );
   }
 
-})( window, function factory( window, getStyleProperty ) {
+})( window, function factory( window ) {
 'use strict';
 
 // -------------------------- helpers -------------------------- //
@@ -89,7 +78,7 @@ function getZeroSize() {
 
 var isSetup = false;
 
-var getStyle, boxSizingProp, isBoxSizeOuter;
+var getStyle, isBoxSizeOuter;
 
 /**
  * setup vars and functions
@@ -126,27 +115,23 @@ function setup() {
 
   // -------------------------- box sizing -------------------------- //
 
-  boxSizingProp = getStyleProperty('boxSizing');
-
   /**
    * WebKit measures the outer-width on style.width on border-box elems
    * IE & Firefox<29 measures the inner-width
    */
-  if ( boxSizingProp ) {
-    var div = document.createElement('div');
-    div.style.width = '200px';
-    div.style.padding = '1px 2px 3px 4px';
-    div.style.borderStyle = 'solid';
-    div.style.borderWidth = '1px 2px 3px 4px';
-    div.style[ boxSizingProp ] = 'border-box';
+  var div = document.createElement('div');
+  div.style.width = '200px';
+  div.style.padding = '1px 2px 3px 4px';
+  div.style.borderStyle = 'solid';
+  div.style.borderWidth = '1px 2px 3px 4px';
+  div.style.boxSizing = 'border-box';
 
-    var body = document.body || document.documentElement;
-    body.appendChild( div );
-    var style = getStyle( div );
+  var body = document.body || document.documentElement;
+  body.appendChild( div );
+  var style = getStyle( div );
 
-    getSize.isBoxSizeOuter = isBoxSizeOuter = getStyleSize( style.width ) === 200;
-    body.removeChild( div );
-  }
+  getSize.isBoxSizeOuter = isBoxSizeOuter = getStyleSize( style.width ) === 200;
+  body.removeChild( div );
 
 }
 
@@ -176,8 +161,7 @@ function getSize( elem ) {
   size.width = elem.offsetWidth;
   size.height = elem.offsetHeight;
 
-  var isBorderBox = size.isBorderBox = !!( boxSizingProp &&
-    style[ boxSizingProp ] && style[ boxSizingProp ] === 'border-box' );
+  var isBorderBox = size.isBorderBox = style.boxSizing == 'border-box';
 
   // get all measurements
   for ( var i=0, len = measurements.length; i < len; i++ ) {

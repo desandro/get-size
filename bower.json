@@ -4,7 +4,6 @@
   "main": "get-size.js",
   "description": "measures element size",
   "dependencies": {
-    "get-style-property": "1.x"
   },
   "devDependencies": {
     "qunit": "~1.10"
