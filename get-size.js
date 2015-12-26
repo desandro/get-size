@@ -30,13 +30,13 @@
 function getStyleSize( value ) {
   var num = parseFloat( value );
   // not a percent like '100%', and a number
-  var isValid = value.indexOf('%') === -1 && !isNaN( num );
+  var isValid = value.indexOf('%') == -1 && !isNaN( num );
   return isValid && num;
 }
 
 function noop() {}
 
-var logError = typeof console === 'undefined' ? noop :
+var logError = typeof console == 'undefined' ? noop :
   function( message ) {
     console.error( message );
   };
@@ -130,7 +130,7 @@ function setup() {
   body.appendChild( div );
   var style = getStyle( div );
 
-  getSize.isBoxSizeOuter = isBoxSizeOuter = getStyleSize( style.width ) === 200;
+  getSize.isBoxSizeOuter = isBoxSizeOuter = getStyleSize( style.width ) == 200;
   body.removeChild( div );
 
 }
@@ -141,19 +141,19 @@ function getSize( elem ) {
   setup();
 
   // use querySeletor if elem is string
-  if ( typeof elem === 'string' ) {
+  if ( typeof elem == 'string' ) {
     elem = document.querySelector( elem );
   }
 
   // do not proceed on non-objects
-  if ( !elem || typeof elem !== 'object' || !elem.nodeType ) {
+  if ( !elem || typeof elem != 'object' || !elem.nodeType ) {
     return;
   }
 
   var style = getStyle( elem );
 
   // if hidden, everything is 0
-  if ( style.display === 'none' ) {
+  if ( style.display == 'none' ) {
     return getZeroSize();
   }
 
