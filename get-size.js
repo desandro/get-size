@@ -12,16 +12,16 @@
 
   if ( typeof define == 'function' && define.amd ) {
     // AMD
-    define( factory( window ) );
+    define( factory() );
   } else if ( typeof module == 'object' && module.exports ) {
     // CommonJS
-    module.exports = factory( window );
+    module.exports = factory();
   } else {
     // browser global
-    window.getSize = factory( window );
+    window.getSize = factory();
   }
 
-})( window, function factory( window ) {
+})( window, function factory() {
 'use strict';
 
 // -------------------------- helpers -------------------------- //
@@ -76,16 +76,32 @@ function getZeroSize() {
   return size;
 }
 
+// -------------------------- getStyle -------------------------- //
+
+/**
+ * getStyle, get style of element, check for Firefox bug
+ * https://bugzilla.mozilla.org/show_bug.cgi?id=548397
+ */
+function getStyle( elem ) {
+  var style = getComputedStyle( elem );
+  if ( !style ) {
+    logError( 'Style returned ' + style +
+      '. Are you running this code in a hidden iframe on Firefox? ' +
+      'See http://bit.ly/getsizebug1' );
+  }
+  return style;
+}
+
 // -------------------------- setup -------------------------- //
 
 var isSetup = false;
 
-var getStyle, isBoxSizeOuter;
+var isBoxSizeOuter;
 
 /**
- * setup vars and functions
- * do it on initial getSize(), rather than on script load
- * For Firefox bug https://bugzilla.mozilla.org/show_bug.cgi?id=548397
+ * setup
+ * check isBoxSizerOuter
+ * do on first getSize() rather than on page load for Firefox bug
  */
 function setup() {
   // setup once
@@ -93,27 +109,6 @@ function setup() {
     return;
   }
   isSetup = true;
-
-  var getComputedStyle = window.getComputedStyle;
-  getStyle = ( function() {
-    var getStyleFn = getComputedStyle ?
-      function( elem ) {
-        return getComputedStyle( elem, null );
-      } :
-      function( elem ) {
-        return elem.currentStyle;
-      };
-
-      return function getStyle( elem ) {
-        var style = getStyleFn( elem );
-        if ( !style ) {
-          logError( 'Style returned ' + style +
-            '. Are you running this code in a hidden iframe on Firefox? ' +
-            'See http://bit.ly/getsizebug1' );
-        }
-        return style;
-      };
-  })();
 
   // -------------------------- box sizing -------------------------- //
 
