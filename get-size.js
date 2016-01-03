@@ -58,6 +58,8 @@ var measurements = [
   'borderBottomWidth'
 ];
 
+var measurementsLength = measurements.length;
+
 function getZeroSize() {
   var size = {
     width: 0,
@@ -67,7 +69,7 @@ function getZeroSize() {
     outerWidth: 0,
     outerHeight: 0
   };
-  for ( var i=0, len = measurements.length; i < len; i++ ) {
+  for ( var i=0; i < measurementsLength; i++ ) {
     var measurement = measurements[i];
     size[ measurement ] = 0;
   }
@@ -164,7 +166,7 @@ function getSize( elem ) {
   var isBorderBox = size.isBorderBox = style.boxSizing == 'border-box';
 
   // get all measurements
-  for ( var i=0, len = measurements.length; i < len; i++ ) {
+  for ( var i=0; i < measurementsLength; i++ ) {
     var measurement = measurements[i];
     var value = style[ measurement ];
     var num = parseFloat( value );
