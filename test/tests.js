@@ -113,20 +113,16 @@ test( 'ex8: 66.666% values', function() {
   }
 });
 
-var supportsBoxSizing = window.getStyleProperty('boxSizing');
-
-if ( supportsBoxSizing ) {
-  test( 'ex9: border-box', function() {
-    var size = getBoxSize(9);
-    equal( size.isBorderBox, true, 'isBorderBox' );
-    equal( size.width, 400, 'width' );
-    equal( size.height, 200, 'height' );
-    equal( size.innerWidth, 280, 'innerWidth' );
-    equal( size.innerHeight, 120, 'innerHeight' );
-    equal( size.outerWidth, 400, 'outerWidth' );
-    equal( size.outerHeight, 200, 'outerHeight' );
-  });
-}
+test( 'ex9: border-box', function() {
+  var size = getBoxSize(9);
+  equal( size.isBorderBox, true, 'isBorderBox' );
+  equal( size.width, 400, 'width' );
+  equal( size.height, 200, 'height' );
+  equal( size.innerWidth, 280, 'innerWidth' );
+  equal( size.innerHeight, 120, 'innerHeight' );
+  equal( size.outerWidth, 400, 'outerWidth' );
+  equal( size.outerHeight, 200, 'outerHeight' );
+});
 
 test( 'display: none', function() {
   var size = getSize( document.querySelector('#hidden .box1') );

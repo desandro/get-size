@@ -1,6 +1,6 @@
 {
   "name": "get-size",
-  "version": "1.2.2",
+  "version": "2.0.1",
   "main": "get-size.js",
   "description": "measures element size",
   "dependencies": {
