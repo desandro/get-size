@@ -1,5 +1,5 @@
 /*!
- * getSize v2.0.1
+ * getSize v2.0.2
  * measure size of elements
  * MIT license
  */
@@ -12,7 +12,9 @@
 
   if ( typeof define == 'function' && define.amd ) {
     // AMD
-    define( factory() );
+    define( function() {
+      return factory();
+    });
   } else if ( typeof module == 'object' && module.exports ) {
     // CommonJS
     module.exports = factory();
