@@ -20,7 +20,7 @@
     window.getSize = factory();
   }
 
-})( window, function factory() {
+})( typeof window !== 'undefined' ? window : global.window, function factory() {
 'use strict';
 
 // -------------------------- helpers -------------------------- //
