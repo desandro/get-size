@@ -3,12 +3,15 @@
   "version": "2.0.3",
   "description": "measures element size",
   "main": "get-size.js",
-  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^7.32.0",
+    "eslint-plugin-metafizzy": "^1.2.1"
+  },
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"View test/ in browser\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -23,5 +26,19 @@
   "bugs": {
     "url": "https://github.com/desandro/get-size/issues"
   },
-  "homepage": "https://github.com/desandro/get-size"
+  "homepage": "https://github.com/desandro/get-size",
+  "eslintConfig": {
+    "plugins": [ "metafizzy" ],
+    "extends": "plugin:metafizzy/browser",
+    "env": {
+      "browser": true,
+      "commonjs": true
+    },
+    "parserOptions": {
+      "ecmaVersion": 2018
+    },
+    "rules": {
+      "complexity": [ "error", 20 ]
+    }
+  }
 }
