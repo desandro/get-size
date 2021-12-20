@@ -20,25 +20,13 @@ Returns an object with:
 + borderLeftWidth, borderTopWidth, borderRightWidth, borderBottomWidth
 + isBorderBox
 
-Browser support: IE10+, Android 4.0+, iOS 5+, and modern browsers
+Browser support: Chrome 51+, Firefox 50+, Edge 12+, Safari 10+,
 
 ## Install
 
-Install with npm: `npm install get-size`
+npm: `npm install get-size`
 
-Install with [Bower](https://bower.io): `bower install get-size`
-
-## Firefox hidden iframe bug
-
-[Firefox has an old bug](https://bugzilla.mozilla.org/show_bug.cgi?id=548397) that occurs within iframes that are hidden with `display: none`. To resolve this, you can use alternate CSS to hide the iframe off-screen, with out `display: none`.
-
-``` css
-.hide-iframe {
-  visibility: hidden;
-  position: absolute;
-  left: -999em;
-}
-```
+Yarn: `yarn add get-size`
 
 ## MIT License
 
