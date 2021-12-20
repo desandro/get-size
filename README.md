@@ -30,4 +30,4 @@ Yarn: `yarn add get-size`
 
 ## MIT License
 
-getSize is released under the [MIT License](https://desandro.mit-license.org/).
+getSize is released under the MIT License. Have at it.
