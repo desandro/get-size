@@ -11,6 +11,7 @@
     "test": "test"
   },
   "scripts": {
+    "lint": "npx eslint .",
     "test": "echo \"View test/ in browser\" && exit 1",
     "version": "node tasks/version.js && git add -A ."
   },
