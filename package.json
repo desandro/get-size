@@ -1,6 +1,6 @@
 {
   "name": "get-size",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "measures element size",
   "main": "get-size.js",
   "devDependencies": {
@@ -11,7 +11,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"View test/ in browser\" && exit 1"
+    "test": "echo \"View test/ in browser\" && exit 1",
+    "version": "node tasks/version.js && git add -A ."
   },
   "repository": {
     "type": "git",
@@ -28,7 +29,9 @@
   },
   "homepage": "https://github.com/desandro/get-size",
   "eslintConfig": {
-    "plugins": [ "metafizzy" ],
+    "plugins": [
+      "metafizzy"
+    ],
     "extends": "plugin:metafizzy/browser",
     "env": {
       "browser": true,
@@ -38,7 +41,10 @@
       "ecmaVersion": 2018
     },
     "rules": {
-      "complexity": [ "error", 20 ]
+      "complexity": [
+        "error",
+        20
+      ]
     }
   }
 }

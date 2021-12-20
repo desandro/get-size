@@ -1,5 +1,5 @@
 /*!
- * getSize v3.0.0
+ * Infinite Scroll v2.0.4
  * measure size of elements
  * MIT license
  */
